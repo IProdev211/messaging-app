@@ -1,45 +1,56 @@
-import { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+	createTheme,
+	CssBaseline,
+	PaletteMode,
+	Theme,
+	ThemeProvider,
+	useMediaQuery,
+} from '@mui/material';
+import { Suspense, useEffect, useMemo } from 'react';
+import { useRecoilState } from 'recoil';
+import ErrorBoundary from './components/ErrorBoundary';
+import Loading from './components/Loading';
+import themeState from './recoil/theme/atom';
 
-function App() {
-	const [count, setCount] = useState(0);
+const getTheme = (mode: PaletteMode): Theme =>
+	createTheme({
+		palette: {
+			mode,
+			background: {
+				default: mode === 'light' ? '#F0F2F5' : '#18191A',
+			},
+		},
+	});
+
+const App = () => {
+	const [theme, setTheme] = useRecoilState(themeState);
+
+	const prefThemeMode = useMediaQuery('(prefers-color-scheme: dark)')
+		? 'dark'
+		: 'light';
+
+	const muiTheme = useMemo(
+		() => getTheme(theme.isUserPicked ? theme.mode : prefThemeMode),
+		[prefThemeMode, theme]
+	);
+
+	useEffect(() => {
+		if (theme.isUserPicked) return;
+
+		setTheme({
+			isUserPicked: false,
+			mode: prefThemeMode,
+		});
+	}, [prefThemeMode, setTheme, theme.isUserPicked]);
 
 	return (
-		<div className='App'>
-			<header className='App-header'>
-				<img src={logo} className='App-logo' alt='logo' />
-				<p>Hello Vite + React!</p>
-				<p>
-					<button type='button' onClick={() => setCount((count) => count + 1)}>
-						count is: {count}
-					</button>
-				</p>
-				<p>
-					Edit <code>App.tsx</code> and save to test HMR updates.
-				</p>
-				<p>
-					<a
-						className='App-link'
-						href='https://reactjs.org'
-						target='_blank'
-						rel='noopener noreferrer'
-					>
-						Learn React
-					</a>
-					{' | '}
-					<a
-						className='App-link'
-						href='https://vitejs.dev/guide/features.html'
-						target='_blank'
-						rel='noopener noreferrer'
-					>
-						Vite Docs
-					</a>
-				</p>
-			</header>
-		</div>
+		<ThemeProvider theme={muiTheme}>
+			<CssBaseline />
+			<Suspense fallback={<Loading />}>
+				<ErrorBoundary></ErrorBoundary>
+			</Suspense>
+		</ThemeProvider>
 	);
-}
+};
 
 export default App;
