@@ -13,9 +13,12 @@
 	"words": [
 		"baatchia",
 		"EBADCSRFTOKEN",
+		"hookform",
 		"resave",
 		"virtuals",
 		"vite",
-		"vitejs"
+		"vitejs",
+		"webfonts",
+		"browserslist"
 	]
 }
