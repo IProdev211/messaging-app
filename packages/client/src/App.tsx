@@ -9,6 +9,8 @@ import {
 } from '@mui/material';
 import { Suspense, useEffect, useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import ChatBox from './components/ChatBox';
+import ChatBoxSkeleton from './components/ChatBox/Skeleton';
 import ErrorBoundary from './components/ErrorBoundary';
 import FriendSearch from './components/FriendSearch';
 import FriendsList from './components/FriendsList';
@@ -40,6 +42,10 @@ const Main = () => {
 			<Stack direction='row'>
 				<Suspense fallback={<FriendsListSkeleton />}>
 					<FriendsList />
+				</Suspense>
+
+				<Suspense fallback={<ChatBoxSkeleton />}>
+					<ChatBox />
 				</Suspense>
 			</Stack>
 		</>
