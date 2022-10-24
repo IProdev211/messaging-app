@@ -9,7 +9,7 @@ import {
 	OutlinedInput,
 	Stack,
 } from '@mui/material';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import useLogin from '../../hooks/useLogin';
 
 const LoginForm = () => {
@@ -92,7 +92,7 @@ const LoginForm = () => {
 				>
 					{btnText}
 				</Button>
-				<Button variant='text' size='small'>
+				<Button disabled={true} variant='text' size='small'>
 					Forget password?
 				</Button>
 			</Stack>

@@ -2,8 +2,9 @@ import { object, ref, string } from 'yup';
 
 export const signUpValidationSchema = object({
 	userName: string().required('Username is a required field'),
-	email: string().required('Email is a required field'),
+	email: string().email().required('Email is a required field'),
 	confirmEmail: string()
+		.email()
 		.required('Email is a required field')
 		.oneOf([ref('email'), null], 'Emails do es not match'),
 	password: string().required(),

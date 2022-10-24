@@ -1,6 +1,7 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
 	Button,
+	ButtonTypeMap,
 	FormControl,
 	FormHelperText,
 	IconButton,
@@ -9,7 +10,7 @@ import {
 	OutlinedInput,
 	Stack,
 } from '@mui/material';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import useSignUp from '../../hooks/useSignUp';
 
 const SignUpForm = () => {
@@ -18,7 +19,7 @@ const SignUpForm = () => {
 			register,
 			formState: { errors },
 		},
-		useMutationReturn: { status, isLoading, isError },
+		useMutationReturn: { status, isLoading },
 		onSubmit,
 	} = useSignUp();
 
@@ -26,8 +27,11 @@ const SignUpForm = () => {
 	const handleToggleShowPassword = () => setShowPassword((prev) => !prev);
 
 	let btnText = 'sign up';
+	let btnColor: ButtonTypeMap['props']['color'] = 'primary';
+
 	switch (status) {
 		case 'idle':
+			btnColor = 'primary';
 			btnText = 'sign up';
 			break;
 		case 'loading':
@@ -35,9 +39,11 @@ const SignUpForm = () => {
 			break;
 		case 'success':
 			btnText = 'try logging in';
+			btnColor = 'success';
 			break;
 		case 'error':
 			btnText = 'something went wrong';
+			btnColor = 'error';
 			break;
 		default:
 			break;
@@ -129,7 +135,7 @@ const SignUpForm = () => {
 					size='large'
 					type='submit'
 					disabled={isLoading}
-					color={isError ? 'error' : 'primary'}
+					color={btnColor}
 				>
 					{btnText}
 				</Button>
