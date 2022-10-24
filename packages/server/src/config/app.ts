@@ -8,6 +8,7 @@ import morgan from 'morgan';
 import path from 'path';
 import WebSocket from 'ws';
 import { handleCsrfErr } from '../common/middleware';
+import friendRequestRouter from '../FRIEND_REQUESTS/friendRequests.router';
 import usersRouter from '../USERS/users.router';
 import { CLIENT_ORIGIN, COOKIE_SECRET, IS_PROD } from './secrets';
 
@@ -53,6 +54,7 @@ export const cookieParser = cookie(COOKIE_SECRET);
 app.use(cookieParser);
 
 app.use('/api/users', usersRouter);
+app.use('/api/friend-requests', friendRequestRouter);
 
 // Serve static assets in production
 if (IS_PROD) {
