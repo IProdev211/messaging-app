@@ -10,5 +10,12 @@
 		"cspell.json",
 		".gitignore"
 	],
-	"words": ["baatchia", "vite", "vitejs"]
+	"words": [
+		"baatchia",
+		"EBADCSRFTOKEN",
+		"resave",
+		"virtuals",
+		"vite",
+		"vitejs"
+	]
 }
