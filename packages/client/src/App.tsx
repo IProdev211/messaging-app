@@ -7,9 +7,14 @@ import {
 	useMediaQuery,
 } from '@mui/material';
 import { Suspense, useEffect, useMemo } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import ErrorBoundary from './components/ErrorBoundary';
+import FriendSearch from './components/FriendSearch';
 import Loading from './components/Loading';
+import Navbar from './components/Navbar';
+import SignUpLogin from './components/SignUpLogin';
+import { useSocketConnect } from './hooks/useSocket';
+import currentUserState from './recoil/currentUser/atom';
 import themeState from './recoil/theme/atom';
 
 const getTheme = (mode: PaletteMode): Theme =>
@@ -21,6 +26,17 @@ const getTheme = (mode: PaletteMode): Theme =>
 			},
 		},
 	});
+
+const Main = () => {
+	useSocketConnect();
+
+	return (
+		<>
+			<Navbar />
+			<FriendSearch />
+		</>
+	);
+};
 
 const App = () => {
 	const [theme, setTheme] = useRecoilState(themeState);
@@ -43,11 +59,15 @@ const App = () => {
 		});
 	}, [prefThemeMode, setTheme, theme.isUserPicked]);
 
+	const currentUser = useRecoilValue(currentUserState);
+
 	return (
 		<ThemeProvider theme={muiTheme}>
 			<CssBaseline />
 			<Suspense fallback={<Loading />}>
-				<ErrorBoundary></ErrorBoundary>
+				<ErrorBoundary>
+					{!currentUser ? <SignUpLogin /> : <Main />}
+				</ErrorBoundary>
 			</Suspense>
 		</ThemeProvider>
 	);
