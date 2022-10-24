@@ -12,6 +12,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import ChatBox from './components/ChatBox';
 import ChatBoxSkeleton from './components/ChatBox/Skeleton';
 import ErrorBoundary from './components/ErrorBoundary';
+import FriendDetails from './components/FriendDetails';
 import FriendSearch from './components/FriendSearch';
 import FriendsList from './components/FriendsList';
 import FriendsListSkeleton from './components/FriendsList/Skeleton';
@@ -47,6 +48,7 @@ const Main = () => {
 				<Suspense fallback={<ChatBoxSkeleton />}>
 					<ChatBox />
 				</Suspense>
+				<FriendDetails />
 			</Stack>
 		</>
 	);
