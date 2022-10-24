@@ -2,6 +2,7 @@ import {
 	createTheme,
 	CssBaseline,
 	PaletteMode,
+	Stack,
 	Theme,
 	ThemeProvider,
 	useMediaQuery,
@@ -10,6 +11,8 @@ import { Suspense, useEffect, useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import ErrorBoundary from './components/ErrorBoundary';
 import FriendSearch from './components/FriendSearch';
+import FriendsList from './components/FriendsList';
+import FriendsListSkeleton from './components/FriendsList/Skeleton';
 import Loading from './components/Loading';
 import Navbar from './components/Navbar';
 import SignUpLogin from './components/SignUpLogin';
@@ -34,6 +37,11 @@ const Main = () => {
 		<>
 			<Navbar />
 			<FriendSearch />
+			<Stack direction='row'>
+				<Suspense fallback={<FriendsListSkeleton />}>
+					<FriendsList />
+				</Suspense>
+			</Stack>
 		</>
 	);
 };
