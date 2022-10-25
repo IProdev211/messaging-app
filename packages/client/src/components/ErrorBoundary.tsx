@@ -1,5 +1,5 @@
 import { Error } from '@mui/icons-material';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Button, Paper, Stack, Typography } from '@mui/material';
 import { Component, ErrorInfo, ReactNode } from 'react';
 
 interface Props {
@@ -24,6 +24,15 @@ class ErrorBoundary extends Component<Props, State> {
 		console.error('Uncaught error:', error, errorInfo);
 	}
 
+	private handleReloadApp() {
+		window.location.reload();
+	}
+
+	private handleResetApp() {
+		localStorage.clear();
+		window.location.reload();
+	}
+
 	public render() {
 		if (this.state.hasError) {
 			return (
@@ -42,8 +51,31 @@ class ErrorBoundary extends Component<Props, State> {
 							gap: '0.5rem',
 						}}
 					>
-						<Error color='error' sx={{ height: '4rem', width: '4rem' }} />
+						<Error color='error' sx={{ height: '5rem', width: '5rem' }} />
 						<Typography variant='h4'>Sorry.. there was an error</Typography>
+						<Stack
+							width='100%'
+							flexDirection='row'
+							justifyContent='space-between'
+							mt='1rem'
+						>
+							<Button
+								size='large'
+								variant='outlined'
+								color='info'
+								onClick={this.handleReloadApp}
+							>
+								Reload App
+							</Button>
+							<Button
+								size='large'
+								variant='outlined'
+								color='error'
+								onClick={this.handleResetApp}
+							>
+								Reset App
+							</Button>
+						</Stack>
 					</Paper>
 				</Box>
 			);
