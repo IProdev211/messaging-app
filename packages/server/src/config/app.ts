@@ -1,5 +1,4 @@
 import cookie from 'cookie-parser';
-import cors from 'cors';
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
@@ -11,17 +10,9 @@ import { handleCsrfErr } from '../common/middleware';
 import friendRequestRouter from '../FRIEND_REQUESTS/friendRequests.router';
 import messagesRouter from '../MESSAGES/messages.router';
 import usersRouter from '../USERS/users.router';
-import { CLIENT_ORIGIN, COOKIE_SECRET, IS_PROD } from './secrets';
+import { COOKIE_SECRET, IS_PROD } from './secrets';
 
 const app = express();
-
-//enabling cors
-app.use(
-	cors({
-		credentials: true,
-		origin: CLIENT_ORIGIN,
-	})
-);
 
 // Enabling helmet
 app.use(helmet({ contentSecurityPolicy: false }));
