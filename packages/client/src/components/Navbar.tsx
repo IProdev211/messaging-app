@@ -1,3 +1,4 @@
+import { Chat } from '@mui/icons-material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDownRounded';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightModeRounded';
@@ -15,8 +16,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import React, { useState } from 'react';
+import { useQuery } from 'react-query';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { useGetReceivedFriendRequests } from '../hooks/useFriendRequest';
+import queryKeys from '../constants/reactQueryKeys';
+import { getReceivedFriendRequests } from '../hooks/useFriendRequest';
 import useLogout from '../hooks/useLogout';
 import currentUserState from '../recoil/currentUser/atom';
 import friendsSearchDialogOpenState from '../recoil/friendsSearchDialogOpen/atom';
@@ -52,15 +55,18 @@ const Navbar = () => {
 		setOpen(true);
 	};
 
-	const { data: friendsRequests } = useGetReceivedFriendRequests();
+	const { data: friendsRequests } = useQuery(
+		queryKeys.sentFriendRequests,
+		getReceivedFriendRequests,
+		{ suspense: false }
+	);
 
 	return (
 		<AppBar position='sticky' elevation={0} color='inherit' variant='outlined'>
 			<Toolbar>
-				<img
-					src='https://img.icons8.com/fluency/200/speech-bubble-with-dots.png'
-					alt='Logo'
-					style={{ width: '40px', marginRight: '12px', marginLeft: '5px' }}
+				<Chat
+					color='primary'
+					sx={{ width: '40px', height: '40px', mr: '5px' }}
 				/>
 				<Typography variant='h6' noWrap component='div' sx={{ flexGrow: 1 }}>
 					Messenger

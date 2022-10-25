@@ -49,7 +49,9 @@ const getSentFriendRequests = async (): Promise<IFriendRequest[]> => {
 	return data;
 };
 
-const getReceivedFriendRequests = async (): Promise<IFriendRequest[]> => {
+export const getReceivedFriendRequests = async (): Promise<
+	IFriendRequest[]
+> => {
 	const { data } = await axiosInstance.get(`/friend-requests/received`, {
 		withCredentials: true,
 	});
@@ -113,7 +115,6 @@ export const useGetReceivedFriendRequests = () =>
 export const useGetSentFriendRequests = () =>
 	useQuery(queryKeys.sentFriendRequests, getSentFriendRequests);
 
-//TODO add optimistic updated
 export const useSendFriendRequest = () => {
 	const userSearchTerm = useRecoilValue(userSearchTermState);
 	const userSearchResultsQueryKey = ['users', 'search', userSearchTerm];
