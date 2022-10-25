@@ -60,9 +60,9 @@ app.use('/api/friend-requests', friendRequestRouter);
 
 // Serve static assets in production
 if (IS_PROD) {
-	app.use(express.static(path.join(__dirname, '../../client/dist')));
+	app.use(express.static(path.join(__dirname, '../../../client/build')));
 	app.get('/', function (req, res) {
-		res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
+		res.sendFile(path.join(__dirname, '../../../client/build', 'index.html'));
 	});
 }
 
