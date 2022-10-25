@@ -23,22 +23,23 @@ const FriendDetails = () => {
 		setSelectedFriend(null);
 	};
 
-	if (!selectedFriend || !open) return null;
+	if (!selectedFriend) return null;
+
 	return (
 		<Drawer
 			sx={{
-				width: '360px',
 				flexShrink: 0,
 				'& .MuiDrawer-paper': {
-					width: '360px',
+					width: '310px',
 					boxSizing: 'border-box',
 					mt: { xs: '56px', sm: '64px' },
 				},
 				textAlign: 'center',
 				zIndex: 0,
 			}}
-			variant='permanent'
+			variant='persistent'
 			anchor='right'
+			open={open}
 		>
 			<Stack spacing={2} alignItems='center' sx={{ mt: '16px' }}>
 				<IconButton onClick={() => setOpen(false)}>
