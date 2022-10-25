@@ -2,9 +2,15 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import { logError } from '../common/utils';
 
+export const IS_PROD = process.env.NODE_ENV === 'production';
+
 if (fs.existsSync('.env')) {
 	console.log('Using .env file to supply config environment variables');
 	dotenv.config({ path: '.env' });
+} else if (IS_PROD) {
+	console.log(
+		'Using production env vars file to supply config environment variables'
+	);
 } else if (fs.existsSync('.env.development')) {
 	console.log(
 		'Using .env.development file to supply config environment variables'
@@ -24,7 +30,6 @@ const getEnvVar = (envVarName: string): string => {
 	return envVar;
 };
 
-export const IS_PROD = process.env.NODE_ENV === 'production';
 export const PORT = getEnvVar('PORT');
 export const COOKIE_SECRET = getEnvVar('COOKIE_SECRET');
 export const JWT_SECRET = getEnvVar('JWT_SECRET');
