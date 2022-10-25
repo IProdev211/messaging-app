@@ -52,6 +52,8 @@ const UserCard = (props: TUserCardProps) => {
 	return (
 		<Card sx={{ width: 200 }}>
 			<CardMedia
+				crossOrigin='anonymous'
+				loading='lazy'
 				component='img'
 				height='194'
 				image={user.avatar}

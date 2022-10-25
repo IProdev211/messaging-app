@@ -31,6 +31,13 @@ const getTheme = (mode: PaletteMode): Theme =>
 				default: mode === 'light' ? '#F0F2F5' : '#18191A',
 			},
 		},
+		components: {
+			MuiAvatar: {
+				defaultProps: {
+					imgProps: { crossOrigin: 'anonymous', loading: 'lazy' },
+				},
+			},
+		},
 	});
 
 const Main = () => {
