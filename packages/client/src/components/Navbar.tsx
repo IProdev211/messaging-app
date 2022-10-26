@@ -56,7 +56,7 @@ const Navbar = () => {
 	};
 
 	const { data: friendsRequests } = useQuery(
-		queryKeys.sentFriendRequests,
+		queryKeys.receivedFriendRequests,
 		getReceivedFriendRequests,
 		{ suspense: false }
 	);
