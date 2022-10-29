@@ -155,7 +155,6 @@ export const useSendFriendRequest = () => {
 	});
 };
 
-//TODO add optimistic updated
 export const useRejectFriendRequest = () =>
 	useMutation(rejectFriendRequest, {
 		// When mutate is called:
