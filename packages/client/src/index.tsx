@@ -38,7 +38,7 @@ const DebugButton = () => {
 };
 
 export const queryClient = new QueryClient({
-	defaultOptions: { queries: { suspense: true } },
+	defaultOptions: { queries: { suspense: true, useErrorBoundary: false } },
 });
 
 const root = ReactDOM.createRoot(
