@@ -1,7 +1,6 @@
 import { IFriendRequest, IUser } from '@messaging-app/shared';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useRecoilValue } from 'recoil';
-import { queryClient } from '..';
 import queryKeys from '../constants/reactQueryKeys';
 import userSearchTermState from '../recoil/userSearchTerm/atom';
 import { axiosInstance } from '../services/axios';
@@ -58,8 +57,9 @@ export const getReceivedFriendRequests = async (): Promise<
 	return data;
 };
 
-export const useAcceptFriendRequest = (friendRequester: IUser) =>
-	useMutation(acceptFriendRequest, {
+export const useAcceptFriendRequest = (friendRequester: IUser) => {
+	const queryClient = useQueryClient();
+	return useMutation(acceptFriendRequest, {
 		// When mutate is called:
 		onMutate: async (requestId) => {
 			// Cancel any outgoing refetch (so they don't overwrite our optimistic update)
@@ -108,6 +108,7 @@ export const useAcceptFriendRequest = (friendRequester: IUser) =>
 			queryClient.invalidateQueries(queryKeys.activeFriends);
 		},
 	});
+};
 
 export const useGetReceivedFriendRequests = () =>
 	useQuery(queryKeys.receivedFriendRequests, getReceivedFriendRequests);
@@ -116,6 +117,7 @@ export const useGetSentFriendRequests = () =>
 	useQuery(queryKeys.sentFriendRequests, getSentFriendRequests);
 
 export const useSendFriendRequest = () => {
+	const queryClient = useQueryClient();
 	const userSearchTerm = useRecoilValue(userSearchTermState);
 	const userSearchResultsQueryKey = ['users', 'search', userSearchTerm];
 
@@ -155,8 +157,9 @@ export const useSendFriendRequest = () => {
 	});
 };
 
-export const useRejectFriendRequest = () =>
-	useMutation(rejectFriendRequest, {
+export const useRejectFriendRequest = () => {
+	const queryClient = useQueryClient();
+	return useMutation(rejectFriendRequest, {
 		// When mutate is called:
 		onMutate: async (requestId) => {
 			// Cancel any outgoing refetch (so they don't overwrite our optimistic update)
@@ -202,3 +205,4 @@ export const useRejectFriendRequest = () =>
 			);
 		},
 	});
+};

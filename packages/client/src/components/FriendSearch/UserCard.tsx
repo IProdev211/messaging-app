@@ -9,7 +9,7 @@ import {
 	Tooltip,
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { queryClient } from '../..';
+import { useQueryClient } from 'react-query';
 import queryKeys from '../../constants/reactQueryKeys';
 import {
 	useAcceptFriendRequest,
@@ -44,6 +44,7 @@ const UserCard = (props: TUserCardProps) => {
 	const { mutate: sendFriendRequest } = useSendFriendRequest();
 	const { mutate: rejectFriendRequest } = useRejectFriendRequest();
 	const { mutate: acceptFriendRequest } = useAcceptFriendRequest(props.user);
+	const queryClient = useQueryClient();
 	const isFriend =
 		queryClient
 			.getQueryData<string[]>(queryKeys.friendsIds)

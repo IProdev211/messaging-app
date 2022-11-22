@@ -1,7 +1,7 @@
-import { IChatMsg, IWSChatMsg, TWSMessage } from '@messaging-app/shared';
+import { IChatMsg, TWSMessage } from '@messaging-app/shared';
 import { useEffect } from 'react';
+import { useQueryClient } from 'react-query';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { queryClient } from '..';
 import { WS_ORIGIN } from '../constants/envVars';
 import queryKeys from '../constants/reactQueryKeys';
 import currentUserState from '../recoil/currentUser/atom';
@@ -31,6 +31,7 @@ export const useSocketConnect = () => {
 		};
 	};
 
+	const queryClient = useQueryClient();
 	const onMessageEffectCallback = () => {
 		if (!socket) return;
 		socket.onmessage = (e) => {
@@ -40,7 +41,13 @@ export const useSocketConnect = () => {
 					setTypingMap((prev) =>
 						new Map(prev).set(message.payload.senderId, false)
 					);
-					setTimeout(() => chatMessageHandler(message), 200);
+					setTimeout(async () => {
+						await queryClient.cancelQueries(queryKeys.conversation);
+						queryClient.setQueryData<IChatMsg[]>(
+							[queryKeys.conversation, message.payload.senderId],
+							(old) => (old ? old.concat(message.payload) : [message.payload])
+						);
+					}, 200);
 					break;
 
 				case 'chat-typing-started':
@@ -65,13 +72,5 @@ export const useSocketConnect = () => {
 	useEffect(openSocketEffectCallback, [currentUser, setSocket, socket]);
 	useEffect(onOpenEffectCallback, [socket]);
 	useEffect(onCloseEffectCallback, [setSocket, socket]);
-	useEffect(onMessageEffectCallback, [setTypingMap, socket]);
-};
-
-const chatMessageHandler = async (chatMessage: IWSChatMsg) => {
-	await queryClient.cancelQueries(queryKeys.conversation);
-	queryClient.setQueryData<IChatMsg[] | undefined>(
-		[queryKeys.conversation, chatMessage.payload.senderId],
-		(old) => old?.concat(chatMessage.payload)
-	);
+	useEffect(onMessageEffectCallback, [queryClient, setTypingMap, socket]);
 };

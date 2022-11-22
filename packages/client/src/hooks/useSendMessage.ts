@@ -1,6 +1,5 @@
 import { IChatMsg } from '@messaging-app/shared';
-import { useMutation } from 'react-query';
-import { queryClient } from '..';
+import { useMutation, useQueryClient } from 'react-query';
 import { TSendMessageInput } from '../common/types';
 import queryKeys from '../constants/reactQueryKeys';
 import { axiosInstance } from '../services/axios';
@@ -14,8 +13,10 @@ const sendMessage = async (
 	return data;
 };
 
-const useSendMessage = () =>
-	useMutation(sendMessage, {
+const useSendMessage = () => {
+	const queryClient = useQueryClient();
+
+	return useMutation(sendMessage, {
 		// When mutate is called:
 
 		onMutate: async (newMessage) => {
@@ -62,5 +63,6 @@ const useSendMessage = () =>
 			]);
 		},
 	});
+};
 
 export default useSendMessage;

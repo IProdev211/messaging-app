@@ -1,6 +1,5 @@
-import { useMutation } from 'react-query';
-import { queryClient } from '..';
 import { IUser } from '@messaging-app/shared';
+import { useMutation, useQueryClient } from 'react-query';
 import queryKeys from '../constants/reactQueryKeys';
 import { axiosInstance } from '../services/axios';
 
@@ -12,8 +11,9 @@ const unfriend = async (userId: string | undefined): Promise<unknown> => {
 	return data;
 };
 
-const useUnfriend = () =>
-	useMutation(unfriend, {
+const useUnfriend = () => {
+	const queryClient = useQueryClient();
+	return useMutation(unfriend, {
 		onMutate: async (userId) => {
 			// Cancel any outgoing refetch (so they don't overwrite our optimistic update)
 			await queryClient.cancelQueries(['users', 'friends']);
@@ -51,5 +51,6 @@ const useUnfriend = () =>
 			);
 		},
 	});
+};
 
 export default useUnfriend;

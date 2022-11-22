@@ -1,11 +1,12 @@
 import { debounce } from 'lodash';
 import { useEffect } from 'react';
+import { useQueryClient } from 'react-query';
 import { useRecoilValue } from 'recoil';
-import { queryClient } from '..';
 import webSocketState from '../recoil/webSocket/atom';
 
 export const useTypingNotification = (friendId: string | undefined) => {
 	const socket = useRecoilValue(webSocketState);
+	const queryClient = useQueryClient();
 	const activeUsers = queryClient.getQueryData<string[]>('active-users');
 
 	const debounceStartTyping = debounce(

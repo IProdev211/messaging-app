@@ -37,15 +37,11 @@ const DebugButton = () => {
 	);
 };
 
-export const queryClient = new QueryClient({
+const queryClient = new QueryClient({
 	defaultOptions: { queries: { suspense: true, useErrorBoundary: false } },
 });
 
-const root = ReactDOM.createRoot(
-	document.getElementById('root') as HTMLElement
-);
-
-root.render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
 		<RecoilRoot>
 			{IS_DEV && <DebugButton />}
