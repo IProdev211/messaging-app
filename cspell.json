@@ -23,6 +23,7 @@
 		"webfonts",
 		"browserslist",
 		"axios",
-		"env"
+		"env",
+		"bgcolor"
 	]
 }

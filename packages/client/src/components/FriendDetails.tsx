@@ -1,12 +1,17 @@
-import { ChevronRight as ChevronRightIcon } from '@mui/icons-material';
+import {
+	ChevronRight as ChevronRightIcon,
+	PersonRemove as PersonRemoveIcon,
+} from '@mui/icons-material';
 import {
 	Avatar,
-	Button,
 	Drawer,
 	IconButton,
 	Stack,
 	Typography,
+	useMediaQuery,
+	useTheme,
 } from '@mui/material';
+import { red } from '@mui/material/colors';
 import { useRecoilState } from 'recoil';
 import useUnfriend from '../hooks/useUnfriend';
 import friendDetailsOpenState from '../recoil/friendDetailsOpen/atom';
@@ -18,26 +23,30 @@ const FriendDetails = () => {
 	const [open, setOpen] = useRecoilState(friendDetailsOpenState);
 	const { mutate: unfriend } = useUnfriend();
 
-	const onClick = () => {
+	const handleUnfriend = () => {
 		unfriend(selectedFriend?.id);
 		setSelectedFriend(null);
 	};
 
-	if (!selectedFriend) return null;
+	const theme = useTheme();
+	const isDownMd = useMediaQuery(theme.breakpoints.down('md'));
+
+	if (!selectedFriend || !open) return null;
 
 	return (
 		<Drawer
 			sx={{
+				width: { xs: '100vw', md: '360px' },
 				flexShrink: 0,
 				'& .MuiDrawer-paper': {
-					width: '310px',
+					width: { xs: '100vw', md: '360px' },
 					boxSizing: 'border-box',
 					mt: { xs: '56px', sm: '64px' },
 				},
-				textAlign: 'center',
+
 				zIndex: 0,
 			}}
-			variant='persistent'
+			variant={isDownMd ? 'temporary' : 'permanent'}
 			anchor='right'
 			open={open}
 		>
@@ -50,9 +59,20 @@ const FriendDetails = () => {
 					sx={{ height: '80px', width: '80px' }}
 				/>
 				<Typography variant='h5'>{selectedFriend.userName}</Typography>
-				<Button variant='contained' color='error' onClick={onClick}>
-					Unfriend
-				</Button>
+
+				<Stack spacing={3} direction='row' justifyContent='space-around'>
+					<Stack justifyContent='center' alignItems='center' spacing={1}>
+						<IconButton
+							onClick={handleUnfriend}
+							sx={{ p: 0, height: 36, width: 36 }}
+						>
+							<Avatar sx={{ bgcolor: red[600] }}>
+								<PersonRemoveIcon />
+							</Avatar>
+						</IconButton>
+						<Typography variant='subtitle2'>Unfriend</Typography>
+					</Stack>
+				</Stack>
 			</Stack>
 		</Drawer>
 	);
