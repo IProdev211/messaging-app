@@ -7,7 +7,9 @@ import {
 	InputAdornment,
 	InputLabel,
 	OutlinedInput,
+	Paper,
 	Stack,
+	Typography,
 } from '@mui/material';
 import { useState } from 'react';
 import useLogin from '../../hooks/useLogin';
@@ -41,12 +43,11 @@ const LoginForm = () => {
 	}
 
 	return (
-		<Stack
-			direction={{ xs: 'column', md: 'row' }}
-			justifyContent={{ xs: 'flex-start', md: 'center' }}
-			spacing={3}
-		>
+		<Paper sx={{ p: '20px', width: '360px' }}>
 			<Stack spacing={2} component='form' onSubmit={onSubmit}>
+				<Typography align='center' variant='h5'>
+					Login
+				</Typography>
 				<FormControl variant='outlined' error={Boolean(errors.email)}>
 					<InputLabel htmlFor='email'>Email</InputLabel>
 					<OutlinedInput
@@ -96,7 +97,7 @@ const LoginForm = () => {
 					Forget password?
 				</Button>
 			</Stack>
-		</Stack>
+		</Paper>
 	);
 };
 

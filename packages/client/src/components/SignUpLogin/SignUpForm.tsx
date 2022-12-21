@@ -8,7 +8,9 @@ import {
 	InputAdornment,
 	InputLabel,
 	OutlinedInput,
+	Paper,
 	Stack,
+	Typography,
 } from '@mui/material';
 import { useState } from 'react';
 import useSignUp from '../../hooks/useSignUp';
@@ -50,12 +52,11 @@ const SignUpForm = () => {
 	}
 
 	return (
-		<Stack
-			direction={{ xs: 'column', md: 'row' }}
-			justifyContent={{ xs: 'flex-start', md: 'center' }}
-			spacing={3}
-		>
+		<Paper sx={{ p: '20px', width: '360px' }}>
 			<Stack spacing={2} component='form' onSubmit={onSubmit}>
+				<Typography align='center' variant='h5'>
+					Sign up
+				</Typography>
 				<FormControl variant='outlined' error={Boolean(errors.userName)}>
 					<InputLabel htmlFor='userName'>Username</InputLabel>
 					<OutlinedInput
@@ -140,7 +141,7 @@ const SignUpForm = () => {
 					{btnText}
 				</Button>
 			</Stack>
-		</Stack>
+		</Paper>
 	);
 };
 
