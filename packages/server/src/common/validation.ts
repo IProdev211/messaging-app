@@ -7,6 +7,5 @@ export const mongooseIdValidationSchema = Joi.string().custom((id, helpers) =>
 
 export const documentIdsValidationSchema = Joi.array()
 	.items(mongooseIdValidationSchema)
-	.min(2)
 	.unique()
 	.required();

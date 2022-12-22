@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { documentIdsValidationSchema } from '../common/validation';
 import {
 	authenticate,
 	csrfLogin,
@@ -22,7 +23,6 @@ import {
 	loginValidationSchema,
 	signupValidationSchema,
 	updateUserValidationSchema,
-	userIdsValidationSchema,
 } from './users.validation';
 
 const usersRouter = Router();
@@ -31,7 +31,7 @@ usersRouter.get('/online', authenticate, getOnlineUser);
 
 usersRouter.post(
 	'/get-by-ids',
-	validateInput(userIdsValidationSchema, 'userIds'),
+	validateInput(documentIdsValidationSchema, 'userIds'),
 	getUsersByIds
 );
 

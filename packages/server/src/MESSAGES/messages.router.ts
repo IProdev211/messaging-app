@@ -1,6 +1,6 @@
 import { Router } from 'express';
+import { documentIdsValidationSchema } from '../common/validation';
 import { authenticate, validateInput } from '../common/middleware';
-import { userIdsValidationSchema } from '../USERS/users.validation';
 import {
 	createMessage,
 	getMessagesByConversationMembers,
@@ -19,7 +19,7 @@ messagesRouter.post(
 messagesRouter.post(
 	'/conversation',
 	authenticate,
-	validateInput(userIdsValidationSchema, 'userIds'),
+	validateInput(documentIdsValidationSchema, 'userIds'),
 	getMessagesByConversationMembers
 );
 

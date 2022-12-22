@@ -3,6 +3,7 @@ import { ErrorRequestHandler, RequestHandler } from 'express';
 import Joi from 'joi';
 import jwt from 'jsonwebtoken';
 import { isValidObjectId } from 'mongoose';
+import { documentIdsValidationSchema } from '../common/validation';
 import { IAsyncRequestHandler, isErrorWithCode } from '../common/interfaces';
 import { catchAsyncReqHandlerErr } from '../common/middleware';
 import { socketConnections } from '../config/app';
@@ -10,7 +11,6 @@ import { IS_PROD, JWT_SECRET } from '../config/secrets';
 import friendRequestsModel from '../FRIEND_REQUESTS/friendRequests.model';
 import userModel from './users.model';
 import { COOKIE_NAME } from './users.strings';
-import { mongooseIdValidationSchema } from './users.validation';
 
 const signupErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 	if (isErrorWithCode(err)) {
@@ -31,8 +31,6 @@ const signupUnsafe: IAsyncRequestHandler = async (req, res) => {
 	});
 };
 
-//TODO send whole user without password as json res
-//TODO send sign only id to the jwt
 const loginUnsafe: IAsyncRequestHandler = async (req, res) => {
 	const loginInput = req.loginInput;
 	const user = await userModel.findOne({ email: loginInput?.email });
@@ -121,7 +119,7 @@ const deleteUserUnsafe: IAsyncRequestHandler = async (req, res) => {
 };
 
 const getUserByIdUnsafe: IAsyncRequestHandler = async (req, res) => {
-	const { value: userId, error } = mongooseIdValidationSchema.validate(
+	const { value: userId, error } = documentIdsValidationSchema.validate(
 		req.params.userId
 	);
 	if (error) {
@@ -146,7 +144,7 @@ const getUsersByIdsUnsafe: IAsyncRequestHandler = async (req, res) => {
 
 const removeFriendUnsafe: IAsyncRequestHandler = async (req, res) => {
 	const userId = req.currentUserId as string;
-	const { value: friendId, error } = mongooseIdValidationSchema.validate(
+	const { value: friendId, error } = documentIdsValidationSchema.validate(
 		req.params.friendId
 	);
 	if (error) {

@@ -1,6 +1,9 @@
 import chalk from 'chalk';
-import { connectDB } from './config/db';
+import { connectDB, setMongoosePlugin } from './config/db';
 import { IS_PROD, PORT } from './config/secrets';
+//must be set before server import
+setMongoosePlugin();
+
 import server from './config/server';
 
 const main = async () => {
