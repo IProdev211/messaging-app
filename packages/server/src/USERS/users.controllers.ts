@@ -31,6 +31,8 @@ const signupUnsafe: IAsyncRequestHandler = async (req, res) => {
 	});
 };
 
+//TODO send whole user without password as json res
+//TODO send sign only id to the jwt
 const loginUnsafe: IAsyncRequestHandler = async (req, res) => {
 	const loginInput = req.loginInput;
 	const user = await userModel.findOne({ email: loginInput?.email });
@@ -39,15 +41,14 @@ const loginUnsafe: IAsyncRequestHandler = async (req, res) => {
 		return;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const { password, friends, ...payload } = user.toObject();
+	const { password, ...payload } = user.toObject();
 	const isPasswordCorrect = bcrypt.compareSync(loginInput.password, password);
 	if (!isPasswordCorrect) {
 		res.status(400).json({ error: 'wrong password or username' });
 		return;
 	}
 
-	const jwtToken = jwt.sign(payload._id.toString(), JWT_SECRET);
+	const jwtToken = jwt.sign(payload.id, JWT_SECRET);
 	res.cookie(COOKIE_NAME, jwtToken, {
 		httpOnly: true,
 		signed: true,
@@ -55,7 +56,7 @@ const loginUnsafe: IAsyncRequestHandler = async (req, res) => {
 		sameSite: 'strict',
 	});
 
-	req.currentUserId = payload._id.toString();
+	req.currentUserId = payload.id;
 
 	const csrfToken = req.csrfToken();
 	res.status(200).json({
