@@ -1,21 +1,14 @@
+import { IUser } from '@messaging-app/shared';
 import bcrypt from 'bcryptjs';
 import { model, Schema } from 'mongoose';
-import { IUser } from '@messaging-app/shared';
 
-const userSchema = new Schema<IUser>(
-	{
-		avatar: String,
-		userName: String,
-		email: { unique: true, type: String },
-		password: String,
-		friends: [String],
-	},
-	{
-		versionKey: false,
-		toJSON: { virtuals: true },
-		toObject: { virtuals: true },
-	}
-);
+const userSchema = new Schema<IUser>({
+	avatar: String,
+	userName: String,
+	email: { unique: true, type: String },
+	password: String,
+	friends: [String],
+});
 
 userSchema.pre('save', function (next) {
 	if (!this.isModified('password')) return next();

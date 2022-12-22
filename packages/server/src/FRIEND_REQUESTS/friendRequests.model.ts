@@ -1,20 +1,13 @@
-import { model, Schema } from 'mongoose';
 import { IFriendRequest } from '@messaging-app/shared';
+import { model, Schema } from 'mongoose';
 
-const friendRequestModel = new Schema<IFriendRequest>(
-	{
-		recipient: String,
-		requester: String,
-		status: {
-			type: String,
-			default: 'pending',
-		},
+const friendRequestModel = new Schema<IFriendRequest>({
+	recipient: String,
+	requester: String,
+	status: {
+		type: String,
+		default: 'pending',
 	},
-	{
-		versionKey: false,
-		toJSON: { virtuals: true },
-		toObject: { virtuals: true },
-	}
-);
+});
 
 export default model('friendRequest', friendRequestModel);
