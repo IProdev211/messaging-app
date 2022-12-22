@@ -1,4 +1,5 @@
 import cookie from 'cookie-parser';
+import cors from 'cors';
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
@@ -10,7 +11,7 @@ import { handleCsrfErr } from '../common/middleware';
 import friendRequestRouter from '../FRIEND_REQUESTS/friendRequests.router';
 import messagesRouter from '../MESSAGES/messages.router';
 import usersRouter from '../USERS/users.router';
-import { COOKIE_SECRET, IS_PROD } from './secrets';
+import { CLIENT_ORIGIN, COOKIE_SECRET, IS_PROD } from './secrets';
 
 const app = express();
 
@@ -32,6 +33,9 @@ if (IS_PROD) {
 
 	app.use('/api', limiter);
 }
+
+//config cors
+if (!IS_PROD) app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }));
 
 // Dev logging middleware
 if (!IS_PROD) {
