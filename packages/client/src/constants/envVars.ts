@@ -1,5 +1,9 @@
-export const API_ORIGIN =
-	process.env.REACT_APP_API_ORIGIN ?? 'http://localhost:4000/api';
+const getEnvVar = (varName: string) => {
+	const varValue = process.env[varName];
+	if (!varValue) throw new Error('missing env var');
+	return varValue;
+};
 
-export const WS_ORIGIN =
-	process.env.REACT_APP_WS_ORIGIN ?? 'ws://localhost:4000/';
+export const API_ORIGIN = getEnvVar('REACT_APP_API_ORIGIN');
+
+export const WS_ORIGIN = getEnvVar('REACT_APP_WS_ORIGIN');
