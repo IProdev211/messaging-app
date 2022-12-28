@@ -1,13 +1,14 @@
 import { Router } from 'express';
-import { documentIdsValidationSchema } from '../common/validation';
 import {
 	authenticate,
 	csrfLogin,
 	csrfProtection,
 	validateInput,
 } from '../common/middleware';
+import { documentIdsValidationSchema } from '../common/validation';
 import {
 	deleteUser,
+	getAccounts,
 	getFriends,
 	getOnlineUser,
 	getUserById,
@@ -26,6 +27,8 @@ import {
 } from './users.validation';
 
 const usersRouter = Router();
+
+usersRouter.get('/accounts', getAccounts);
 
 usersRouter.get('/online', authenticate, getOnlineUser);
 

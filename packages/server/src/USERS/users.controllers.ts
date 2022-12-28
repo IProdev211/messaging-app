@@ -228,6 +228,11 @@ const getFriendsUnsafe: IAsyncRequestHandler = async (req, res) => {
 	res.status(200).json(currentUser.friends);
 };
 
+const getAccountsUnsafe: IAsyncRequestHandler = async (req, res) => {
+	const email = await userModel.find().select('email avatar userName');
+	res.status(200).json(email);
+};
+
 export const signup = catchAsyncReqHandlerErr(signupUnsafe, signupErrorHandler);
 export const login = catchAsyncReqHandlerErr(loginUnsafe);
 export const updateUser = catchAsyncReqHandlerErr(updateUserUnsafe);
@@ -241,3 +246,4 @@ export const searchUsersByUserName = catchAsyncReqHandlerErr(
 	searchUsersByUserNameUnsafe
 );
 export const getFriends = catchAsyncReqHandlerErr(getFriendsUnsafe);
+export const getAccounts = catchAsyncReqHandlerErr(getAccountsUnsafe);
