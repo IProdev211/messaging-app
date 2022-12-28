@@ -3,9 +3,9 @@ import { ErrorRequestHandler, RequestHandler } from 'express';
 import Joi from 'joi';
 import jwt from 'jsonwebtoken';
 import { isValidObjectId } from 'mongoose';
-import { documentIdsValidationSchema } from '../common/validation';
 import { IAsyncRequestHandler, isErrorWithCode } from '../common/interfaces';
 import { catchAsyncReqHandlerErr } from '../common/middleware';
+import { documentIdValidationSchema } from '../common/validation';
 import { socketConnections } from '../config/app';
 import { IS_PROD, JWT_SECRET } from '../config/secrets';
 import friendRequestsModel from '../FRIEND_REQUESTS/friendRequests.model';
@@ -119,7 +119,7 @@ const deleteUserUnsafe: IAsyncRequestHandler = async (req, res) => {
 };
 
 const getUserByIdUnsafe: IAsyncRequestHandler = async (req, res) => {
-	const { value: userId, error } = documentIdsValidationSchema.validate(
+	const { value: userId, error } = documentIdValidationSchema.validate(
 		req.params.userId
 	);
 	if (error) {
@@ -144,7 +144,7 @@ const getUsersByIdsUnsafe: IAsyncRequestHandler = async (req, res) => {
 
 const removeFriendUnsafe: IAsyncRequestHandler = async (req, res) => {
 	const userId = req.currentUserId as string;
-	const { value: friendId, error } = documentIdsValidationSchema.validate(
+	const { value: friendId, error } = documentIdValidationSchema.validate(
 		req.params.friendId
 	);
 	if (error) {
