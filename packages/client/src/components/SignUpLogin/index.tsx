@@ -1,6 +1,6 @@
 import { Chat, LightMode } from '@mui/icons-material';
 import DarkMode from '@mui/icons-material/DarkMode';
-import { IconButton, Stack, Typography } from '@mui/material';
+import { Box, IconButton, Stack, Typography } from '@mui/material';
 import { useRecoilState } from 'recoil';
 import themeState from '../../recoil/theme/atom';
 import LoginForm from './LoginForm';
@@ -19,9 +19,10 @@ const SignUpLogin = () => {
 	return (
 		<Stack height='100vh' justifyContent='space-between' p='18px' spacing={3}>
 			<Stack direction='row' justifyContent='center' alignItems='center'>
-				<Chat
-					color='primary'
-					sx={{ width: '40px', height: '40px', mr: '8px' }}
+				<Box
+					component='img'
+					src='./logo192.png'
+					sx={{ width: '40px', height: '40px', mr: '5px' }}
 				/>
 				<Typography variant='h4'>Messenger</Typography>
 			</Stack>

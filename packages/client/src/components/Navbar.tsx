@@ -1,11 +1,10 @@
-import { Chat } from '@mui/icons-material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDownRounded';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightModeRounded';
 import LogoutIcon from '@mui/icons-material/LogoutRounded';
 import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
 import SettingsIcon from '@mui/icons-material/SettingsRounded';
-import { Button, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, Button, ListItemIcon, ListItemText } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
@@ -64,8 +63,9 @@ const Navbar = () => {
 	return (
 		<AppBar position='sticky' elevation={0} color='inherit' variant='outlined'>
 			<Toolbar>
-				<Chat
-					color='primary'
+				<Box
+					component='img'
+					src='./logo192.png'
 					sx={{ width: '40px', height: '40px', mr: '5px' }}
 				/>
 				<Typography variant='h6' noWrap component='div' sx={{ flexGrow: 1 }}>
