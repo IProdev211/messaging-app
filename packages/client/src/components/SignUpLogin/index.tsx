@@ -1,4 +1,4 @@
-import { Chat, LightMode } from '@mui/icons-material';
+import { LightMode } from '@mui/icons-material';
 import DarkMode from '@mui/icons-material/DarkMode';
 import { Box, IconButton, Stack, Typography } from '@mui/material';
 import { useRecoilState } from 'recoil';
