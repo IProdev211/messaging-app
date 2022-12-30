@@ -34,4 +34,4 @@ export const PORT = getEnvVar('PORT');
 export const COOKIE_SECRET = getEnvVar('COOKIE_SECRET');
 export const JWT_SECRET = getEnvVar('JWT_SECRET');
 export const MONGODB_URI = getEnvVar('MONGODB_URI');
-export const CLIENT_ORIGIN = getEnvVar('CLIENT_ORIGIN');
+export const CLIENT_ORIGIN = !IS_PROD ? getEnvVar('CLIENT_ORIGIN') : '';
