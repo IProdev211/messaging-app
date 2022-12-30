@@ -1,5 +1,7 @@
-import { LightMode } from '@mui/icons-material';
-import DarkMode from '@mui/icons-material/DarkMode';
+import {
+	DarkMode as DarkModeIcon,
+	LightMode as LightModeIcon,
+} from '@mui/icons-material';
 import { Box, IconButton, Stack, Typography } from '@mui/material';
 import { useRecoilState } from 'recoil';
 import themeState from '../../recoil/theme/atom';
@@ -38,7 +40,7 @@ const SignUpLogin = () => {
 			</Stack>
 			<Stack justifyContent='center' alignItems='center'>
 				<IconButton size='large' onClick={handleToggleTheme}>
-					{theme.mode === 'dark' ? <DarkMode /> : <LightMode />}
+					{theme.mode === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
 				</IconButton>
 			</Stack>
 		</Stack>
