@@ -1,13 +1,13 @@
 import { axiosInstance } from '../services/axios';
 
 const logoutReq = async () =>
-	await axiosInstance.delete('http://localhost:4000/api/users/logout', {
-		withCredentials: true,
-	});
+	await axiosInstance.delete('/users/logout', { withCredentials: true });
 
 const useLogout = () => {
-	const logout = async () => {
-		await logoutReq();
+	const logout = () => {
+		try {
+			logoutReq();
+		} catch (error) {}
 		localStorage.clear();
 		window.location.reload();
 	};
