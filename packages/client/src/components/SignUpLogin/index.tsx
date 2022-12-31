@@ -19,7 +19,12 @@ const SignUpLogin = () => {
 	};
 
 	return (
-		<Stack height='100vh' justifyContent='space-between' p='18px' spacing={3}>
+		<Stack
+			height={{ xs: '100%', sm: '100vh' }}
+			justifyContent='space-around'
+			p='18px'
+			spacing={3}
+		>
 			<Stack direction='row' justifyContent='center' alignItems='center'>
 				<Box
 					component='img'
