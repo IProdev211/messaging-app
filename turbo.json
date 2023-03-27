@@ -4,7 +4,7 @@
 	"globalEnv": ["PORT"],
 	"pipeline": {
 		"build": {
-			"outputs": ["dist/**", "build/**", "public/build/**"],
+			"outputs": ["dist/**"],
 			"dependsOn": ["^build"]
 		},
 		"lint": {
@@ -22,6 +22,8 @@
 		},
 		"clean": {
 			"cache": false
-		}
+		},
+		"//#format": { "outputs": [".prettier-cache"] },
+		"//#spell-check": { "outputs": [".cspellcache"] }
 	}
 }

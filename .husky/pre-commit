@@ -8,7 +8,7 @@ echo -e "${yellow}Linting:${no_color}"
 FORCE_COLOR=1 pnpm -s lint
 
 echo -e "\n${yellow}Formatting:${no_color}"
-FORCE_COLOR=1 pnpm -s format
+FORCE_COLOR=1 pnpm turbo run format
 
 echo -e "\n${yellow}Spell Checking:${no_color}"
-FORCE_COLOR=1 pnpm -s spell-check
+FORCE_COLOR=1 pnpm turbo run spell-check
