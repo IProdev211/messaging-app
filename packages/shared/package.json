@@ -1,7 +1,7 @@
 {
-	"name": "@messaging-app/shared",
+	"name": "shared",
 	"author": "Baatchia Riyadh",
 	"license": "MIT",
-	"version": "0.1.0",
-	"main": "src"
+	"version": "1.0.0",
+	"main": "src/index.ts"
 }
