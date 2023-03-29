@@ -4,11 +4,11 @@
 yellow='\033[0;33m'
 no_color='\033[0m'
 
-echo -e "${yellow}Linting:${no_color}"
-FORCE_COLOR=1 pnpm -s lint
+# To fix color issues
+exec >/dev/tty 2>&1
 
-echo -e "\n${yellow}Formatting:${no_color}"
-FORCE_COLOR=1 pnpm turbo run format
+echo -e "${yellow}Formatting:${no_color}"
+FORCE_COLOR=1 pnpm exec lint-staged
 
-echo -e "\n${yellow}Spell Checking:${no_color}"
-FORCE_COLOR=1 pnpm turbo run spell-check
+echo -e "\n${yellow}Linting & Spell Checking:${no_color}"
+FORCE_COLOR=1 pnpm turbo run spell-check lint
