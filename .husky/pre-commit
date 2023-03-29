@@ -7,8 +7,9 @@ no_color='\033[0m'
 # To fix color issues
 exec >/dev/tty 2>&1
 
+echo -e "\n${yellow}Linting & Spell Checking:${no_color}"
+FORCE_COLOR=1 pnpm turbo run spell-check lint --no-daemon
+
 echo -e "${yellow}Formatting:${no_color}"
 FORCE_COLOR=1 pnpm exec lint-staged
 
-echo -e "\n${yellow}Linting & Spell Checking:${no_color}"
-FORCE_COLOR=1 pnpm turbo run spell-check lint --no-daemon
