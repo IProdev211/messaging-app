@@ -6,24 +6,25 @@
 		"build",
 		"coverage",
 		"tsconfig.json",
-		".prettierrc.json",
-		"cspell.json",
+		"pnpm-lock.yaml",
 		".gitignore"
 	],
 	"words": [
+		"axios",
 		"baatchia",
+		"bgcolor",
 		"browserslist",
+		"degit",
 		"EBADCSRFTOKEN",
+		"env",
 		"hookform",
 		"resave",
+		"tsup",
 		"TTFB",
+		"Turborepo",
 		"virtuals",
 		"vite",
 		"vitejs",
-		"webfonts",
-		"browserslist",
-		"axios",
-		"env",
-		"bgcolor"
+		"webfonts"
 	]
 }

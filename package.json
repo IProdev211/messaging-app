@@ -1,38 +1,27 @@
 {
 	"name": "messaging-app",
-	"private": "true",
-	"workspaces": [
-		"packages/*"
-	],
-	"version": "0.1.0",
-	"author": "Baatchia Riyadh",
-	"license": "MIT",
-	"devDependencies": {
-		"concurrently": "^7.0.0",
-		"cspell": "^5.19.3",
-		"cz-conventional-changelog": "^3.3.0",
-		"husky": "^7.0.4",
-		"lerna": "^4.0.0",
-		"lint-staged": "^12.3.7",
-		"prettier": "^2.6.1"
-	},
-	"config": {
-		"commitizen": {
-			"path": "cz-conventional-changelog"
-		}
-	},
+	"private": true,
 	"scripts": {
-		"client": "yarn workspace @messaging-app/client",
-		"server": "yarn workspace @messaging-app/server",
-		"common": "yarn workspace @messaging-app/shared",
-		"build": "yarn server build && yarn client build",
-		"build:concurrent": "concurrently \"yarn server build\" \"yarn client build\" --names \"server,client\"",
-		"start": "yarn server start",
-		"start:concurrent": "concurrently \"yarn server start\" \"yarn client serve\" --names \"server,client\"",
-		"start:dev": "concurrently \"yarn server start:dev\" \"yarn client dev\" -i --names \"server,client\"",
-		"start:debug": "concurrently \"yarn server start:debug\" \"yarn client dev\" -i --names \"server,client\"",
-		"format-code": "prettier . --write --ignore-unknown",
-		"release": "lerna version --conventional-commits --create-release github",
+		"build": "turbo run build --no-daemon",
+		"clean": "turbo run clean --no-daemon",
+		"dev": "turbo run dev --no-cache --continue --no-daemon ",
+		"debug": "turbo run debug --no-cache --continue --no-daemon ",
+		"lint": "turbo run lint --no-daemon ",
+		"format": "prettier --write --ignore-unknown --cache --cache-location=.prettier-cache .",
+		"spell-check": "cspell --show-suggestions --relative --no-must-find-files --cache .",
 		"prepare": "husky install"
-	}
+	},
+	"devDependencies": {
+		"cspell": "^6.31.1",
+		"husky": "^8.0.3",
+		"lint-staged": "^13.2.0",
+		"prettier": "^2.8.7",
+		"turbo": "^1.8.7"
+	},
+	"lint-staged": {
+		"*": [
+			"prettier --write --ignore-unknown --cache --cache-location=.prettier-cache"
+		]
+	},
+	"packageManager": "pnpm@8.1.0"
 }
