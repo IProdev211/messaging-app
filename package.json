@@ -3,6 +3,7 @@
 	"private": true,
 	"scripts": {
 		"build": "turbo run build --no-daemon",
+		"start": "pnpm --filter api start",
 		"clean": "turbo run clean --no-daemon",
 		"dev": "turbo run dev --no-cache --continue --no-daemon ",
 		"debug": "turbo run debug --no-cache --continue --no-daemon ",

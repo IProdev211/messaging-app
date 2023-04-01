@@ -7,10 +7,10 @@ import hpp from 'hpp';
 import morgan from 'morgan';
 import path from 'path';
 import WebSocket from 'ws';
-import { handleCsrfErr } from '../common/middleware';
 import friendRequestRouter from '../FRIEND_REQUESTS/friendRequests.router';
 import messagesRouter from '../MESSAGES/messages.router';
 import usersRouter from '../USERS/users.router';
+import { handleCsrfErr } from '../common/middleware';
 import { CLIENT_ORIGIN, COOKIE_SECRET, IS_PROD } from './secrets';
 
 //Hash map of userIds as key and socket connection as values
@@ -56,10 +56,12 @@ export default function createExpressApp(): Express {
 	app.use('/api/friend-requests', friendRequestRouter);
 
 	// Serve static assets in production
-	if (IS_PROD) {
-		app.use(express.static(path.join(__dirname, '../../../client/build')));
+	console.log(process.env.NODE_ENV);
+	if (process.env.NODE_ENV) {
+		app.use(express.static(path.join(__dirname, '../../web/dist')));
 		app.get('/', function (req, res) {
-			res.sendFile(path.join(__dirname, '../../../client/build', 'index.html'));
+			console.log(IS_PROD);
+			res.sendFile(path.join(__dirname, '../../web/dist', 'index.html'));
 		});
 	}
 
